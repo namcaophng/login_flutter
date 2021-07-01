@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login/constant/page_constant.dart';
 import 'package:login/controller/page_navigation_controller/page_navigation_controller.dart';
 import 'package:login/core/models/user_model.dart';
 import 'package:login/core/user_repo.dart';
@@ -30,7 +31,8 @@ class UserViewModel extends GetxController {
     _sharedPrf.setString(key, value);
   }
 
-  void login(email, password) {
+  void login(email, password, {Function? func}) {
+
     print(email);
     userEnums = UserEnums.Waiting;
     update();
@@ -43,10 +45,13 @@ class UserViewModel extends GetxController {
           user = result;
           addKeyToSharedPref(SHAPREF_ACCOUNT, user.account);
           update();
-          Get.offAll(() => HomeViewPage());
+          final navigator = Get.find<NavigationPageController>();
+          print("login success");
+          navigator.changeActivePage(PageConstant.HOME_PAGE);
         } else {
           userEnums = UserEnums.Error;
           debugPrint('Wrong password...');
+          func?.call("Wrong password");
         }
       }
     });
@@ -71,7 +76,8 @@ class UserViewModel extends GetxController {
         print("register success");
         addKeyToSharedPref(SHAPREF_ACCOUNT, email);
         update();
-        Get.offAll(() => LoginViewPage());
+        final navigator = Get.find<NavigationPageController>();
+        navigator.changeActivePage(PageConstant.LOGIN_PAGE);
       }
     });
   }

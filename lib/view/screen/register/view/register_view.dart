@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:login/view/screen/login/view/login_view.dart';
+import 'package:login/constant/page_constant.dart';
+import 'package:login/controller/page_navigation_controller/page_navigation_controller.dart';
 import 'package:login/view/screen/login/widget/page_title_widget.dart';
 import 'package:login/view/screen/register/widget/register_button_widget.dart';
 import 'package:login/viewmodel/user_viewmodel.dart';
@@ -55,7 +56,8 @@ class _RegisterViewPageState extends State<RegisterViewPage> {
                     text: 'Create an account',
                   ),
                   InkWell(
-                    onTap: () => Get.off(() => LoginViewPage()),
+                    onTap: () => Get.find<NavigationPageController>()
+                        .changeActivePage(PageConstant.LOGIN_PAGE),
                     child: Container(
                       padding: EdgeInsets.all(5),
                       child: TextStyleGenerator(

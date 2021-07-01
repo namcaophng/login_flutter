@@ -6,16 +6,16 @@ import 'package:login/view/screen/register/view/register_view.dart';
 import 'package:login/view/screen/unknown/UnknownViewPage.dart';
 
 class NavigationPageController extends GetxController {
-  final pages = [
-    LoginViewPage(),
-    HomeViewPage(),
-    RegisterViewPage(),
-    UnknownViewPage()
-  ];
+  final pages = {
+    PageConstant.LOGIN_PAGE: LoginViewPage(),
+    PageConstant.HOME_PAGE: HomeViewPage(),
+    PageConstant.REGISTER_PAGE: RegisterViewPage(),
+    PageConstant.UNKNOWN_PAGE: UnknownViewPage()
+  };
 
-  var activePage = 0;
+  var activePage = "";
 
-  changeActivePage(int page) {
+  changeActivePage(String page) {
     activePage = page;
     update();
   }

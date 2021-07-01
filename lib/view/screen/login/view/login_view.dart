@@ -4,6 +4,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:login/view/screen/login/widget/login_button_widget.dart';
 import 'package:login/view/screen/login/widget/page_title_widget.dart';
 import 'package:login/view/screen/register/view/register_view.dart';
+import 'package:login/viewmodel/user_viewmodel.dart';
 import 'package:login/widgets/textfield_login_widget.dart';
 import 'package:login/widgets/textstyle_generator.dart';
 
@@ -50,7 +51,7 @@ class _LoginViewPageState extends State<LoginViewPage> {
                     margin: EdgeInsets.all(20),
                     child: TextStyleGenerator(
                       fontWeight: FontWeight.w300,
-                      text: 'Dont have an account? Register now',
+                      text: 'Don\'t have an account? Register now',
                       size: 14,
                       color: Colors.black,
                     ),

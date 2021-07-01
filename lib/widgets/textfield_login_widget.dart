@@ -39,10 +39,10 @@ class FormTextFieldWidget extends StatelessWidget {
         child: TextFormField(
           onSaved: (val) {
             hint == 'Password'
-                ? userViewModel.password = val
+                ? userViewModel.password = val.isNullOrBlank == false ? val! : ""
                 : hint == 'Email'
-                    ? userViewModel.email = val
-                    : userViewModel.name = val;
+                    ? userViewModel.email = val.isNullOrBlank == false ? val! : ""
+                    : userViewModel.name = val.isNullOrBlank == false ? val! : "";
           },
           validator: (textValue) {
             if (textValue!.isNotEmpty) {

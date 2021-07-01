@@ -2,12 +2,12 @@ import 'dart:core';
 
 class UserModel {
   UserModel({
-    required this.id,
+    required this.name,
     required this.account,
     required this.password
   });
 
-  String id;
+  String name;
   String account;
   String password;
 }

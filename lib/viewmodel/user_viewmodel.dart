@@ -1,11 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login/core/data/local/user_dao.dart';
 import 'package:login/core/models/user_model.dart';
+import 'package:login/core/user_repo.dart';
+import 'package:login/core/user_repo_impl.dart';
+import 'package:login/view/screen/home/view/home_view.dart';
+import 'package:login/view/screen/login/view/login_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum UserEnums { Logged, Logout, Waiting, Error, Initial }
 
 class UserViewModel extends GetxController {
+  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+
   late SharedPreferences _sharedPrf;
+  UserRepository _userRepository = UserRepositoryImpl();
 
   UserEnums userEnums = UserEnums.Initial;
 
@@ -20,42 +30,50 @@ class UserViewModel extends GetxController {
     _sharedPrf.setString(key, value);
   }
 
-  void login(apiEmail, apiPassword) {
-    print(apiEmail);
+  void login(email, password) {
+    print(email);
     userEnums = UserEnums.Waiting;
     update();
-    _apiServices.login(apiEmail, apiPassword).then((value) {
-      if (value == false) {
+    _userRepository.getUser(email, (UserModel? result) {
+      if (result == null) {
         userEnums = UserEnums.Error;
         debugPrint('There was a problem with user login....');
       } else {
-        user = UserModel.fromJson(value);
-        addKeyToShareedPref('userId', user.objectId);
-        update();
-        Get.offAll(
-                () => HomeViewPage()); // it's delete all pages at navigate stack
+        if ((result).password == password) {
+          user = result;
+          addKeyToSharedPref(SHAPREF_ACCOUNT, user.account);
+          update();
+          Get.offAll(() => HomeViewPage());
+        } else {
+          userEnums = UserEnums.Error;
+          debugPrint('Wrong password...');
+        }
       }
     });
   }
 
-  void register(apiName, apiEmail, apiPassword) {
-    print(apiName);
-    print(apiEmail);
-    print(apiPassword);
+  void register(name, email, password) {
+    print(name);
+    print(email);
+    print(password);
 
     userEnums = UserEnums.Waiting;
     update();
-    _apiServices.register(apiName, apiEmail, apiPassword).then((value) {
-      if (value == false) {
-        userEnums = UserEnums.Error;
 
-        debugPrint('There was a problem with user register....');
+    _userRepository.getUser(email, (UserModel? result) {
+      if (result != null) {
+        userEnums = UserEnums.Error;
+        debugPrint('Email was existed...');
       } else {
-        user = UserModel.fromJson(value);
-        addKeyToShareedPref('userId', user.objectId);
+        _userRepository.register(
+            UserModel(name: name, account: email, password: password)
+        );
+        addKeyToSharedPref(SHAPREF_ACCOUNT, email);
         update();
-        Get.offAll(() => HomeViewPage());
+        Get.offAll(() => LoginViewPage());
       }
     });
   }
+
+  final String SHAPREF_ACCOUNT = 'share_pref_account';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:login/viewmodel/user_viewmodel.dart';
 import 'package:login/widgets/textstyle_generator.dart';
 
 class LoginButtonWidget extends StatelessWidget {
@@ -12,9 +13,9 @@ class LoginButtonWidget extends StatelessWidget {
     return GetBuilder<UserViewModel>(
       builder: (userViewModel) => InkWell(
         onTap: () {
-          bool isValid = userViewModel.loginFormKey.currentState.validate();
+          bool isValid = userViewModel.loginFormKey.currentState!.validate();
           if (isValid) {
-            userViewModel.loginFormKey.currentState.save();
+            userViewModel.loginFormKey.currentState!.save();
             userViewModel.login(userViewModel.email, userViewModel.password);
           }
         },

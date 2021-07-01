@@ -2,7 +2,7 @@ import 'package:login/core/models/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class UserDAO {
-  static late Database? database;
+  static Database? database;
 
   Future<Database> open() async {
     if (database == null) {
@@ -34,9 +34,9 @@ class UserDAO {
   }
 
   Future<UserModel?> getUser(String userName) async {
-    Database db = await open();
+    Database? db = await open();
 
-    List<Map<String, dynamic>> results = await db.query(tableName,
+    List<Map<String, dynamic>>? results = await db.query(tableName,
         where: "${this.account} LIKE '$userName'", limit: 1);
     if (results.length == 0) {
       return null;
@@ -54,24 +54,28 @@ class UserDAO {
     );
   }
 
-  Future<List<UserModel>> getAllUsers() async {
+  Future<List<UserModel>?> getAllUsers() async {
     Database db = await open();
 
-    List<Map<String, dynamic>> results =
+    List<Map<String, dynamic>>? results =
     await db.query(tableName, orderBy: "$id DESC");
     List<UserModel> users = [];
+    if (results.length == 0) {
+      return null;
+    }
     for (Map<String, dynamic> result in results) {
       users.add(getUserRaw(result));
     }
     return users;
   }
 
-  // Future<int> removeWeather(UserModel user) async {
-  //   Database database = await open();
-  //   int result = await database
-  //       .rawDelete("DELETE FROM $tableName WHERE $id = ${user.id};");
-  //   return result;
-  // }
+  Future<int> removeUser(UserModel user) async {
+    Database db = await open();
+    int result = await db.rawDelete(
+      "DELETE FROM $tableName WHERE $account = ${user.account};"
+    );
+    return result;
+  }
 
   final String tableName = 'table_user';
 

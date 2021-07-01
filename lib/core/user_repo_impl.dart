@@ -6,7 +6,7 @@ class UserRepositoryImpl with UserRepository {
   UserDAO _userDAO = UserDAO();
   @override
   Future<void> getUser(String userName, Function result) async {
-    result(_userDAO.getUser(userName));
+    _userDAO.getUser(userName).then((value) => result(value));
   }
 
   @override

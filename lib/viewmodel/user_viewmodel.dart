@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/core/data/local/user_dao.dart';
+import 'package:login/controller/page_navigation_controller/page_navigation_controller.dart';
 import 'package:login/core/models/user_model.dart';
 import 'package:login/core/user_repo.dart';
 import 'package:login/core/user_repo_impl.dart';
@@ -68,6 +68,7 @@ class UserViewModel extends GetxController {
         _userRepository.register(
             UserModel(name: name, account: email, password: password)
         );
+        print("register success");
         addKeyToSharedPref(SHAPREF_ACCOUNT, email);
         update();
         Get.offAll(() => LoginViewPage());

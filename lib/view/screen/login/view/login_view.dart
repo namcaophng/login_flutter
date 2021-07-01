@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:login/controller/page_navigation_controller/page_navigation_controller.dart';
 import 'package:login/view/screen/login/widget/login_button_widget.dart';
 import 'package:login/view/screen/login/widget/page_title_widget.dart';
 import 'package:login/view/screen/register/view/register_view.dart';

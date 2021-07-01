@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:login/constant/page_constant.dart';
 import 'package:login/view/screen/home/view/home_view.dart';
@@ -7,16 +6,16 @@ import 'package:login/view/screen/register/view/register_view.dart';
 import 'package:login/view/screen/unknown/UnknownViewPage.dart';
 
 class NavigationPageController extends GetxController {
-  Map<String, Widget> pages = {
-    PageConstant.LOGIN_PAGE: LoginViewPage(),
-    PageConstant.HOME_PAGE: HomeViewPage(),
-    PageConstant.REGISTER_PAGE: RegisterViewPage(),
-    PageConstant.UNKNOWN_PAGE: UnknownViewPage()
-  };
+  final pages = [
+    LoginViewPage(),
+    HomeViewPage(),
+    RegisterViewPage(),
+    UnknownViewPage()
+  ];
 
-  var activePage = PageConstant.LOGIN_PAGE;
+  var activePage = 0;
 
-  changeActivePage(String page) {
+  changeActivePage(int page) {
     activePage = page;
     update();
   }

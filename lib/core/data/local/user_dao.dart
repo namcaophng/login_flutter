@@ -42,11 +42,11 @@ class UserDAO {
       return null;
     } else {
       var result = results[0];
-      return getUserRaw(result);
+      return _getUserRaw(result);
     }
   }
 
-  UserModel getUserRaw(Map<String, dynamic> result) {
+  UserModel _getUserRaw(Map<String, dynamic> result) {
     return UserModel(
         name: result[name],
         account: result[account],
@@ -64,7 +64,7 @@ class UserDAO {
       return null;
     }
     for (Map<String, dynamic> result in results) {
-      users.add(getUserRaw(result));
+      users.add(_getUserRaw(result));
     }
     return users;
   }

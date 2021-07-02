@@ -5,8 +5,6 @@ import 'package:login/controller/page_navigation_controller/page_navigation_cont
 import 'package:login/core/models/user_model.dart';
 import 'package:login/core/user_repo.dart';
 import 'package:login/core/user_repo_impl.dart';
-import 'package:login/view/screen/home/view/home_view.dart';
-import 'package:login/view/screen/login/view/login_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum UserEnums { Logged, Logout, Waiting, Error, Initial }

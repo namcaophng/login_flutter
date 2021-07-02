@@ -37,6 +37,7 @@ class FormTextFieldWidget extends StatelessWidget {
               )
             ]),
         child: TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           onSaved: (val) {
             hint == 'Password'
                 ? userViewModel.password = val.isNullOrBlank == false ? val! : ""

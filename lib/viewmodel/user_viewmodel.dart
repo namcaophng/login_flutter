@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/constant/page_constant.dart';
@@ -17,6 +19,8 @@ class UserViewModel extends GetxController {
   UserRepository _userRepository = UserRepositoryImpl();
 
   UserEnums userEnums = UserEnums.Initial;
+
+  StreamController<String>  errorLogin = StreamController<String>();
 
   late String name;
   late String email;
@@ -49,6 +53,7 @@ class UserViewModel extends GetxController {
         } else {
           userEnums = UserEnums.Error;
           debugPrint('Wrong password...');
+          errorLogin.add("Wrong password");
           func?.call("Wrong password");
         }
       }

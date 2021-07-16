@@ -19,4 +19,10 @@ class NavigationPageController extends GetxController {
     activePage = page;
     update();
   }
+
+  navigateToHomePage(String data) {
+    activePage = PageConstant.HOME_PAGE;
+    pages.update(PageConstant.HOME_PAGE, (value) => HomeViewPage());
+    update();
+  }
 }
